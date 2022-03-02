@@ -1,52 +1,15 @@
 package com.example.runtimetracker
 
 import android.app.Activity
-import android.database.sqlite.SQLiteOpenHelper
-import android.os.AsyncTask
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
-import com.example.runtimetracker.AddEditRunActivity
 
-class AddEditRunActivity : Activity() {
+class AddEditRunActivity : Activity(), AddEditRunTask.AddEditRunTaskListener {
     enum class TASK_TYPE {
-        ADD, EDIT
-    }
-
-    private inner class AddEditRunTask : AsyncTask<TaskRun?, Void?, Boolean>() {
-        private var run: TaskRun? = null
-        override fun onPreExecute() {
-            super.onPreExecute()
-            (findViewById<View>(R.id.prg_add_edit) as ProgressBar).visibility = View.VISIBLE
-        }
-
-        override fun doInBackground(vararg p0: TaskRun?): Boolean {
-            run = p0[0]
-            val dbHelper: SQLiteOpenHelper = DBHelper(this@AddEditRunActivity)
-            return try {
-                val db = dbHelper.writableDatabase
-                when (run!!.taskType) {
-                    TASK_TYPE.ADD -> DBHelper.insertRun(db, run!!.runTime, run!!.runDistance)
-                    TASK_TYPE.EDIT -> DBHelper.updateRun(db, run!!.id, run!!.runTime, run!!.runDistance)
-                }
-                true
-            } catch (ex: Exception) {
-                false
-            }
-        }
-
-        override fun onPostExecute(success: Boolean) {
-            super.onPostExecute(success)
-            (findViewById<View>(R.id.prg_add_edit) as ProgressBar).visibility = View.INVISIBLE
-            if (success) {
-                Toast.makeText(this@AddEditRunActivity, "Run saved", Toast.LENGTH_SHORT).show()
-                clearInput()
-            } else {
-                Toast.makeText(this@AddEditRunActivity, "Failed to save run", Toast.LENGTH_SHORT).show()
-            }
-        }
-
+        ADD, EDIT, DELETE
     }
 
     //----   INSTANCE VARIABLES   ----
@@ -73,7 +36,7 @@ class AddEditRunActivity : Activity() {
                 val runTime = (findViewById<View>(R.id.edt_run_time) as EditText).text.toString()
                 val runDist = (findViewById<View>(R.id.edt_run_distance) as EditText).text.toString()
                 val taskRun = TaskRun(runID, runTime, runDist.toFloat(), null, currentTaskType!!)
-                AddEditRunTask().execute(taskRun)
+                AddEditRunTask(this).execute(taskRun)
             }
         }
 
@@ -126,13 +89,25 @@ class AddEditRunActivity : Activity() {
         return true
     }
 
-    //------------------------------------
-    //       CLEAR INPUT
-    //------------------------------------
-    private fun clearInput() {
+
+    //-------------------------------------------------
+    //       ADD/EDIT LISTENER INTERFACE OVERRIDES
+    //-------------------------------------------------
+    override fun clearInput() {
         (findViewById<View>(R.id.edt_run_time) as EditText).setText("")
         (findViewById<View>(R.id.edt_run_distance) as EditText).setText("")
     }
+
+    override fun getCallerContext(): Context? {
+        return applicationContext
+    }
+
+    override fun makeToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+    //-------------------------------------------------
+    //-------------------------------------------------
+
 
     companion object {
         const val TASK_TYPE_STR = "TASK_TYPE"
