@@ -73,18 +73,14 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_
             val runValues = ContentValues()
             runValues.put("Run_Time", time)
             runValues.put("Run_Distance", dist)
-            db.update("Run", runValues, "_id = ?", arrayOf(java.lang.Long.toString(runID)))
+            db.update("Run", runValues, "_id = ?", arrayOf(runID.toString()))
         }
 
         //-----------------------------
-        //       UPDATE RUN
+        //       DELETE RUN
         //-----------------------------
-        fun deleteRun(db: SQLiteDatabase, time: String?, dist: Float) {
-            val runValues = ContentValues()
-            runValues.put("Run_Time", time)
-            runValues.put("Run_Distance", dist)
-            runValues.put("Run_Date", Date(System.currentTimeMillis()).time)
-            db.insert("Run", null, runValues)
+        fun deleteRun(db: SQLiteDatabase, runID:Long) {
+            db.delete("Run","_id = ?", arrayOf(runID.toString()))
         }
     }
 }

@@ -1,18 +1,21 @@
 package com.example.runtimetracker
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.example.runtimetracker.AddEditRunActivity
 
-class RunDetails : Activity() {
+class RunDetails : Activity(), AddEditRunTask.AddEditRunTaskListener {
     private var runID: Long = 0
     private var runTime: String? = null
     private var runDist: String? = null
     private var runDate: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_run_details)
@@ -45,7 +48,8 @@ class RunDetails : Activity() {
         //----   SET DELETE BUTTON ONCLICK   ----
         val deleteButton = findViewById<View>(R.id.btn_run_delete) as Button
         deleteButton.setOnClickListener {
-            //----   TO DO   ----
+            val taskRun = TaskRun(runID, "", 0f, null, AddEditRunActivity.TASK_TYPE.DELETE!!)
+            AddEditRunTask(this).execute(taskRun)
         }
 
         //----   SET BACK BUTTON ONCLICK   ----
@@ -61,4 +65,25 @@ class RunDetails : Activity() {
         (findViewById<View>(R.id.txt_run_dist) as TextView).text = runDist
         (findViewById<View>(R.id.txt_run_date) as TextView).text = runDate
     }
+
+    //-------------------------------------------------
+    //       ADD/EDIT LISTENER INTERFACE OVERRIDES
+    //-------------------------------------------------
+    override fun returnToPrevScreen() {
+        finish()
+    }
+
+    override fun clearInput() {
+        this.clearInput()
+    }
+
+    override fun makeToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun getCallerContext(): Context? {
+        return applicationContext
+    }
+    //-------------------------------------------------
+    //-------------------------------------------------
 }
