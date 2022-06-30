@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -16,51 +17,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="16dp"
             android:text="Run Times"
-            android:textSize="20dp"
+            android:textSize="30sp"
+            android:textColor="@color/white"
             android:textStyle="bold" />
-
-        <TableLayout
-            android:id="@+id/main_act_runs_table"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:weightSum="100">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="34"
-                    android:text="Date"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="33"
-                    android:text="Time"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="33"
-                    android:text="Distance"
-                    android:textAlignment="center" />
-            </TableRow>
-        </TableLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="15dp"
-            android:background="#888" />
 
         <ProgressBar
             android:id="@+id/prg_main"
@@ -74,7 +35,9 @@
         <ListView
             android:id="@+id/runs_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5dp"/>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

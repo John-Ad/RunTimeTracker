@@ -62,7 +62,7 @@ class RunDetails : Activity(), AddEditRunTask.AddEditRunTaskListener {
     //------------------------------------
     private fun setDetails() {
         (findViewById<View>(R.id.txt_run_time) as TextView).text = runTime
-        (findViewById<View>(R.id.txt_run_dist) as TextView).text = runDist
+        (findViewById<View>(R.id.txt_run_dist) as TextView).text = runDist + " Km"
         (findViewById<View>(R.id.txt_run_date) as TextView).text = runDate
     }
 

@@ -13,6 +13,7 @@ import java.util.*
 
 class RunCursorAdapter(context: Context?, c: Cursor?, flags: Int) : CursorAdapter(context, c, flags) {
     private val layoutInflater: LayoutInflater
+
     override fun newView(context: Context, cursor: Cursor, viewGroup: ViewGroup): View {
         return layoutInflater.inflate(R.layout.run_record, viewGroup, false)
     }

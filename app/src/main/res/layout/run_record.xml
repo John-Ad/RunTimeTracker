@@ -1,35 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
-    android:orientation="horizontal"
-    android:weightSum="100"
+    android:layout_height="90dp"
+    android:background="@drawable/run_record_bg_rounded"
     >
 
     <TextView
-        android:id="@+id/txt_run_date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="34"
+        android:id="@+id/txt_run_dist"
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:padding="2dp"
+        android:background="#232F34"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="3 km"
         android:textAlignment="center"
-        android:textSize="13sp" />
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt_run_time"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="33"
+        android:layout_height="45dp"
+        android:gravity="center_horizontal|center_vertical"
         android:textAlignment="center"
-        android:textSize="13sp" />
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:text="00:20:24:88"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/txt_run_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txt_run_dist" />
 
     <TextView
-        android:id="@+id/txt_run_dist"
+        android:id="@+id/txt_run_date"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="33"
+        android:layout_height="35dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="20/06/2022"
+        android:textColor="@color/white"
         android:textAlignment="center"
-        android:textSize="13sp" />
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txt_run_dist" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
